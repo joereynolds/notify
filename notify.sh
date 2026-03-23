@@ -1,9 +1,14 @@
 # Pings my phone when certain shit hits certain fans
 
-curl -s https://joereynolds.uk/ | grep -q Joe || curl -H "Title: joereynolds.uk is down" -d "" ntfy.sh/joe-reynolds-general-dump
-curl -s https://kingleech.uk/ | grep -q Joe || curl -H "Title: kingleech.uk is down" -d "" ntfy.sh/joe-reynolds-general-dump
-curl -s https://ragaoftheweek.com/ | grep -q weeks || curl -H "Title: ragaoftheweek is down" -d "" ntfy.sh/joe-reynolds-general-dump
-curl -s https://thegoodgamefactory.com/ | grep -q evidence || curl -H "Title: thegoodgamefactory is down" -d "" ntfy.sh/joe-reynolds-general-dump
+check_website() {
+    curl -Is https://$1 | head -n 1 | grep "200" || curl -H "Title: $1 is down" -d "" ntfy.sh/joe-reynolds-general-dump
+}
+
+check_website "joereynolds.uk"
+check_website "kingleech.uk"
+check_website "ragaoftheweek.com"
+check_website "thegoodgamefactory.com"
+
 
 # TODO - Notify when a thing has finished downloading
 # TODO - notify when someone SSHs into my box(es)
