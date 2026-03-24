@@ -1,7 +1,20 @@
 # Pings my phone when certain shit hits certain fans
+# Change topic to your topic obvs
+TOPIC="https://ntfy.sh/xxx"
 
 check_website() {
-    curl -Is https://$1 | head -n 1 | grep "200" || curl -H "Title: $1 is down" -d "" ntfy.sh/joe-reynolds-general-dump
+    curl -Is https://$1 | head -n 1 | grep "200" || curl -H "Title: $1 is down" -d "" $TOPIC
+}
+
+check_disk_space() {
+    THRESHOLD=5
+    USAGE=$(df "$1" | grep / | awk '{ print $5 }' | sed 's/%//g')
+
+    if [ "$USAGE" -gt "$THRESHOLD" ]; then
+        curl -H "Title: Disk Space Low" \
+             -d "Disk is ${USAGE}% full on $(hostname)" \
+             $TOPIC
+    fi
 }
 
 check_website "joereynolds.uk"
@@ -9,7 +22,6 @@ check_website "kingleech.uk"
 check_website "ragaoftheweek.com"
 check_website "thegoodgamefactory.com"
 
-# TODO - notify when VPN has ran out of credits
+check_disk_space /
+
 # TODO - random cat picture at 12
-# TODO - low disk space
-# TODO - High cpu load
