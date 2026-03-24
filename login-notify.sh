@@ -9,7 +9,7 @@ if [ "$PAM_TYPE" != "close_session" ]; then
     USER=$PAM_USER
     IP=$PAM_RHOST
 
-    URL="ntfy.sh/joe-reynolds-general-dump"
+    URL="ntfy.sh/xxx"
 
     curl -H "Login into Droplet" \
          -d "Login detected on $HOST: User $USER from $IP" \
