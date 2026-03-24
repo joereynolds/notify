@@ -9,9 +9,6 @@ check_website "kingleech.uk"
 check_website "ragaoftheweek.com"
 check_website "thegoodgamefactory.com"
 
-
-# TODO - Notify when a thing has finished downloading
-# TODO - notify when someone SSHs into my box(es)
 # TODO - notify when VPN has ran out of credits
 # TODO - random cat picture at 12
 # TODO - low disk space
