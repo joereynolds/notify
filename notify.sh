@@ -7,12 +7,12 @@ check_website() {
 }
 
 check_disk_space() {
-    THRESHOLD=5
+    THRESHOLD=85
     USAGE=$(df "$1" | grep / | awk '{ print $5 }' | sed 's/%//g')
 
     if [ "$USAGE" -gt "$THRESHOLD" ]; then
         curl -H "Title: Disk Space Low" \
-             -d "Disk is ${USAGE}% full on $(hostname)" \
+             -d "Disk is ${USAGE}% full on $(hostname): $1" \
              $TOPIC
     fi
 }
@@ -23,5 +23,6 @@ check_website "ragaoftheweek.com"
 check_website "thegoodgamefactory.com"
 
 check_disk_space /
+# check_disk_space /dev/sda2 # only on my debian box
 
 # TODO - random cat picture at 12
