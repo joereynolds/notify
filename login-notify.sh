@@ -3,16 +3,26 @@
 # Put this on your Droplet or whatever. It'll notify you 
 # when someone sshs in
 
-# Only run on "open_session" (login), skip on "close_session" (logout)
-if [ "$PAM_TYPE" != "close_session" ]; then
+# List of IPs to ignore (Ploi workers and monitors)
+IGNORE_IPS=("94.237.47.71" "94.237.51.22" "5.22.210.148" "209.50.49.15" "95.111.198.27")
+
+# Check if the current login IP is in our ignore list
+for IP in "${IGNORE_IPS[@]}"; do
+    if [ "$PAM_RHOST" == "$IP" ]; then
+        exit 0
+    fi
+done
+
+# Standard filters: skip logout and internal system tasks (empty RHOST)
+if [ "$PAM_TYPE" != "close_session" ] && [ -n "$PAM_RHOST" ]; then
     HOST=$(hostname)
     USER=$PAM_USER
     IP=$PAM_RHOST
 
-    URL="ntfy.sh/xxx"
+    URL="ntfy.sh/joe-reynolds-general-dump"
 
-    curl -H "Login into Droplet" \
-         -d "Login detected on $HOST: User $USER from $IP" \
+    curl -H "Title: Login on $HOST" \
+         -d "User $USER connected from $IP" \
          $URL > /dev/null 2>&1
 fi
 
