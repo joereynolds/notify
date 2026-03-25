@@ -19,7 +19,7 @@ if [ "$PAM_TYPE" != "close_session" ] && [ -n "$PAM_RHOST" ]; then
     USER=$PAM_USER
     IP=$PAM_RHOST
 
-    URL="ntfy.sh/joe-reynolds-general-dump"
+    URL="ntfy.sh/xxx"
 
     curl -H "Title: Login on $HOST" \
          -d "User $USER connected from $IP" \
