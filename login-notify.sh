@@ -4,7 +4,7 @@
 # when someone sshs in
 
 # List of IPs to ignore (Ploi workers and monitors)
-IGNORE_IPS=("94.237.47.71" "94.237.51.22" "5.22.210.148" "209.50.49.15" "95.111.198.27")
+IGNORE_IPS=("94.237.47.71" "94.237.51.22" "5.22.210.148" "209.50.49.15" "95.111.198.27" "94.237.42.145" "94.237.102.252")
 
 # Check if the current login IP is in our ignore list
 for IP in "${IGNORE_IPS[@]}"; do
